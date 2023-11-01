@@ -6,7 +6,7 @@ function getDuration(min) {
     return min * 60 * 1000 + 1000
 }
 
-let duration = getDuration(30)
+let duration = 0
 let timer
 
 function getCountDown() {
@@ -26,10 +26,8 @@ function addZero(val) {
 
 function render() {
     const { min, sec } = getCountDown()
-    const minDiv = getElement('.min')
-    const secDiv = getElement('.sec')
-    minDiv.innerHTML = addZero(min)
-    secDiv.innerHTML = addZero(sec)
+    setMin(addZero(min))
+    setSec(addZero(sec))
 }
 
 
@@ -42,4 +40,32 @@ function startCountDown() {
     }, 1000);
 }
 
-startCountDown()
+// startCountDown()
+function start() {
+    if (duration) {
+        return
+    }
+    duration = getDuration(3)
+    startCountDown()
+}
+
+
+function cancel() {
+    if (!duration) {
+        return
+    }
+    setMin('00')
+    setSec('00')
+    duration = 0
+}
+
+
+function setMin(val) {
+    const el = getElement('.min')
+    el.innerHTML = val
+}
+
+function setSec(val) {
+    const el = getElement('.sec')
+    el.innerHTML = val
+}

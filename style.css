@@ -3,18 +3,18 @@
 }
 
 body {
-  /* padding: 0 20%; */
   min-width: 480px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 .main {
   width: fit-content;
   padding: 30px;
-  margin-top: 15%;
   background: #dc6b67;
-  border: 5px dashed #412920;
   border-radius: 20px;
 }
 
@@ -35,6 +35,7 @@ body {
   border-radius: 30px;
   color: #fff;
   font-size: 15vh;
+  font-weight: bold;
 }
 
 .block {
@@ -46,7 +47,7 @@ body {
 
 .dots {
   height: 200px;
-  margin-top: -20px;
+  line-height: 180px;
 }
 
 button {
@@ -57,4 +58,8 @@ button {
   margin-right: 15px;
   color: #862725;
   font-size: 16px;
+}
+
+button:hover {
+  background: lightgray;
 }

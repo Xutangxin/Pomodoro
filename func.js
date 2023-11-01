@@ -31,22 +31,22 @@ function render() {
 }
 
 
-function startCountDown() {
+function handleCountDown() {
     timer = setInterval(() => {
         if (!duration) {
+            notifyTimeEnd()
             clearInterval(timer)
         }
         render()
     }, 1000);
 }
 
-// startCountDown()
 function start() {
     if (duration) {
         return
     }
     duration = getDuration(3)
-    startCountDown()
+    handleCountDown()
 }
 
 
@@ -56,6 +56,9 @@ function cancel() {
     }
     setMin('00')
     setSec('00')
+    if (timer) {
+        clearInterval(timer)
+    }
     duration = 0
 }
 
@@ -68,4 +71,8 @@ function setMin(val) {
 function setSec(val) {
     const el = getElement('.sec')
     el.innerHTML = val
+}
+
+function notifyTimeEnd() {
+    speechSynthesis.speak(new SpeechSynthesisUtterance('倒计时结束，工作辛苦啦，休息一下吧'))
 }

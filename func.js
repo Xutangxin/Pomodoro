@@ -1,3 +1,7 @@
+let duration = 0
+let timer
+let tipTimer
+
 function getElement(val) {
     return document.querySelector(val)
 }
@@ -5,9 +9,6 @@ function getElement(val) {
 function getDuration(min) {
     return min * 60 * 1000 + 1000
 }
-
-let duration = 0
-let timer
 
 function getCountDown() {
     if (duration) {
@@ -19,15 +20,13 @@ function getCountDown() {
     }
 }
 
-
 function addZero(val) {
     return val < 10 ? '0' + val : val
 }
 
 function render() {
     const { min, sec } = getCountDown()
-    setMin(addZero(min))
-    setSec(addZero(sec))
+    setTime(addZero(min), addZero(sec))
 }
 
 
@@ -45,7 +44,8 @@ function start() {
     if (duration) {
         return
     }
-    duration = getDuration(3)
+    showTips('已开始倒计时')
+    duration = getDuration(15)
     handleCountDown()
 }
 
@@ -54,8 +54,8 @@ function cancel() {
     if (!duration) {
         return
     }
-    setMin('00')
-    setSec('00')
+    showTips('已取消')
+    setTime('00', '00')
     if (timer) {
         clearInterval(timer)
     }
@@ -63,16 +63,23 @@ function cancel() {
 }
 
 
-function setMin(val) {
-    const el = getElement('.min')
-    el.innerHTML = val
-}
-
-function setSec(val) {
-    const el = getElement('.sec')
-    el.innerHTML = val
+function setTime(min, sec) {
+    const minEl = getElement('.min')
+    const secEl = getElement('.sec')
+    minEl.innerHTML = min
+    secEl.innerHTML = sec
 }
 
 function notifyTimeEnd() {
     speechSynthesis.speak(new SpeechSynthesisUtterance('倒计时结束，工作辛苦啦，休息一下吧'))
+}
+
+function showTips(msg) {
+    const el = getElement('.tips')
+    el.innerHTML = msg
+    el.classList.remove('hide')
+    clearTimeout(tipTimer)
+    tipTimer = setTimeout(() => {
+        el.classList.add('hide')
+    }, 3000);
 }

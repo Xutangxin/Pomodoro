@@ -20,14 +20,13 @@ body {
 .operates {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 0 20px 20px;
 }
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px;
   padding: 20px 40px;
   background: #d24a45;
   border-radius: 20px;
